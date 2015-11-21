@@ -18,81 +18,79 @@ import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
-	ListView listView ;
-	
+	ListView listView;
+
+	// Global variables
+
+	// AlarmIDNumber is used to identify different alarms, it will be used to
+	// modify alarms
+	int AlarmIDNumber = 0;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
 		listView = (ListView) findViewById(R.id.list);
-		String jsonReturn = "{'alarmList':["
-				+ "{'name':'alarm1'},"
-				+ "{'name':'alarm2'}]"
-				+ "}";
-		
+		String jsonReturn = "{'alarmList':[" + "{'name':'alarm1'},"
+				+ "{'name':'alarm2'}]" + "}";
+
 		JSONObject mainObject;
 		JSONArray cast = null;
 		String[] values = null;
-		
+
 		try {
 			mainObject = new JSONObject(jsonReturn);
 			cast = mainObject.getJSONArray("alarmList");
-			values=new String[cast.length()];
-			for (int i=0; i<cast.length(); i++) {
-			    JSONObject alarm = cast.getJSONObject(i);
-			    String name = alarm.getString("name");
-			    values[i] = name;
+			values = new String[cast.length()];
+			for (int i = 0; i < cast.length(); i++) {
+				JSONObject alarm = cast.getJSONObject(i);
+				String name = alarm.getString("name");
+				values[i] = name;
 			}
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+				android.R.layout.simple_list_item_1, android.R.id.text1, values);
 
-		
+		// Assign adapter to ListView
+		listView.setAdapter(adapter);
 
-			
-	
-		
+		listView.setOnItemClickListener(new OnItemClickListener() {
 
-		
-		
-       
-		 ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-	              android.R.layout.simple_list_item_1, android.R.id.text1, values);
-	    
-	    
-        // Assign adapter to ListView
-        listView.setAdapter(adapter); 
-	        
-        listView.setOnItemClickListener(new OnItemClickListener() {
-        	 
-            public void onItemClick(AdapterView<?> parent, View view,
-               int position, long id) {
-              
-             // ListView Clicked item index
-             int itemPosition  = position;
-             
-             // ListView Clicked item value
-             String  itemValue    = (String) listView.getItemAtPosition(position);
-                
-              // Show Alert 
-              Toast.makeText(getApplicationContext(),
-                "Position :"+itemPosition+"  ListItem : " +itemValue , Toast.LENGTH_LONG)
-                .show();
-           
-            }
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
 
-       }); 
-  
-	
+				// ListView Clicked item index
+				int itemPosition = position;
+
+				// ListView Clicked item value
+				String itemValue = (String) listView
+						.getItemAtPosition(position);
+
+				// Show Alert
+				Toast.makeText(
+						getApplicationContext(),
+						"Position :" + itemPosition + "  ListItem : "
+								+ itemValue, Toast.LENGTH_LONG).show();
+
+			}
+
+		});
+
 		Button addAlarm = (Button) findViewById(R.id.button_addAlarm);
 		// When the login button is clicked this will be trigered
 		addAlarm.setOnClickListener(new Button.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				// Calling the SetAlarm activity
+				// We send the alarm id number, if we want to modify an alarm
+				// it is initially set to 0, this is if we want to set a new alarm
 				Intent intent = new Intent(MainActivity.this, SetAlarm.class);
+				intent.putExtra("AlarmIDNumber", AlarmIDNumber);
 				startActivity(intent);
 			}
 		});
