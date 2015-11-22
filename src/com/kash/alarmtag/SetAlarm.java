@@ -59,12 +59,17 @@ public class SetAlarm extends Activity {
 				JSONObject AlarmIdentifier = new JSONObject();
 				JSONObject AlarmDetails = new JSONObject();
 				try {
+					AlarmDetails.put("ID", AlarmIDNumber);
 					AlarmDetails.put("Name", AlarmName);
 					AlarmDetails.put("Hour", Hour);
 					AlarmDetails.put("Minute", Minute);
-					AlarmIdentifier.put("AlarmIDNumber", AlarmIDNumber);
+					AlarmIdentifier.put("Alarm", AlarmDetails);
 				} catch (Exception e) {
-					// Something went wrong!
+					Context context = getApplicationContext();
+					CharSequence text = "Could not put information into JaSon format!";
+					int duration = Toast.LENGTH_SHORT;
+					Toast toast = Toast.makeText(context, text, duration);
+					toast.show();
 				}
 				
 				// try-with-resources statement based on post comment below :)
@@ -72,7 +77,7 @@ public class SetAlarm extends Activity {
 				file = "Alrams.txt";
 				try  {
 					String content = AlarmIdentifier.toString();
-					FileOutputStream fos = openFileOutput(file, Context.MODE_PRIVATE);
+					FileOutputStream fos = openFileOutput(file, Context.MODE_WORLD_READABLE);
 					fos.write(content.getBytes());
 					fos.close();
 				}catch(Exception e){
