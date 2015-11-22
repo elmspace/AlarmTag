@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TimePicker;
+import android.widget.TimePicker.OnTimeChangedListener;
 import android.widget.Toast;
 
 public class SetAlarm extends Activity {
@@ -47,9 +48,11 @@ public class SetAlarm extends Activity {
 		timePicker = (TimePicker) findViewById(R.id.timePicker);
 		timePicker.setIs24HourView(true);
 
+
 		Hour = timePicker.getCurrentHour();
 		Minute = timePicker.getCurrentMinute();
-
+		
+		
 		Button addAlarm = (Button) findViewById(R.id.button_addAlarm);
 
 		addAlarm.setOnClickListener(new Button.OnClickListener() {
@@ -71,25 +74,29 @@ public class SetAlarm extends Activity {
 					Toast toast = Toast.makeText(context, text, duration);
 					toast.show();
 				}
-				
+
 				// try-with-resources statement based on post comment below :)
-				File directory = getFilesDir ();
+				File directory = getFilesDir();
 				file = "Alrams.txt";
-				try  {
+				try {
 					String content = AlarmIdentifier.toString();
-					FileOutputStream fos = openFileOutput(file, Context.MODE_WORLD_READABLE);
+					FileOutputStream fos = openFileOutput(file,
+							Context.MODE_WORLD_READABLE);
 					fos.write(content.getBytes());
 					fos.close();
-				}catch(Exception e){
+					
 					Context context = getApplicationContext();
-					CharSequence text = "Something is wrong!";
+					CharSequence text = Integer.toString(Hour);
+					int duration = Toast.LENGTH_SHORT;
+					Toast toast = Toast.makeText(context, text, duration);
+					toast.show();
+				} catch (Exception e) {
+					Context context = getApplicationContext();
+					CharSequence text = "Can not wtite to the file!";
 					int duration = Toast.LENGTH_SHORT;
 					Toast toast = Toast.makeText(context, text, duration);
 					toast.show();
 				}
-				
-		
-				
 
 				// Intent intent = new Intent(SetAlarm.this,
 				// MainActivity.class);
@@ -98,10 +105,5 @@ public class SetAlarm extends Activity {
 			}
 		});
 
-		
-		
-	
-		
-		
 	}
 }
