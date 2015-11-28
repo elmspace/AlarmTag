@@ -27,8 +27,10 @@
             android:label="@string/title_activity_set_alarm" >
         </activity>
     </application>
-    
+
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.NFC" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
 
 </manifest>
