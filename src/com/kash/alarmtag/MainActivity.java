@@ -152,8 +152,9 @@ public class MainActivity extends Activity {
 		
 		
 
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_list_item_1, android.R.id.text1, alarm_name_array);
+	//	ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+	//android.R.layout.simple_list_item_1, android.R.id.text1, alarm_name_array);
+		ArrayAdapter<String>  adapter = new AlarmAdapter(this, alarm_name_array);
 
 		listView = (ListView) findViewById(R.id.list);
 
