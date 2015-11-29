@@ -36,125 +36,145 @@ public class MainActivity extends Activity {
 	// modify alarms
 	int AlarmIDNumber = 0;
 
-	//Make some simple file I/O handling functions
-	private void writeToFile(String data,String filename) { //Write data to a file
-	    try {
-	        OutputStreamWriter outputStreamWriter = new OutputStreamWriter(openFileOutput(filename, Context.MODE_PRIVATE));
-	        outputStreamWriter.write(data);
-	        outputStreamWriter.close();
-	    }
-	    catch (IOException e) {
-	        Log.e("Exception", "File write failed: " + e.toString());
-	    } 
+	// Make some simple file I/O handling functions
+	private void writeToFile(String data, String filename) { // Write data to a
+																// file
+		try {
+			OutputStreamWriter outputStreamWriter = new OutputStreamWriter(
+					openFileOutput(filename, Context.MODE_PRIVATE));
+			outputStreamWriter.write(data);
+			outputStreamWriter.close();
+		} catch (IOException e) {
+			Log.e("Exception", "File write failed: " + e.toString());
+		}
 	}
-	
 
-	private String readFromFile(String filename) { //Read data from a file
-	    String ret = "";
-	    try {
-	        InputStream inputStream = openFileInput(filename);
-	
-	        if ( inputStream != null ) {
-	            InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-	            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-	            String receiveString = "";
-	            StringBuilder stringBuilder = new StringBuilder();
-	
-	            while ( (receiveString = bufferedReader.readLine()) != null ) {
-	                stringBuilder.append(receiveString);
-	            }
-	
-	            inputStream.close();
-	            ret = stringBuilder.toString();
-	        }
-	    }
-	    catch (FileNotFoundException e) {
-	        Log.e("login activity", "File not found: " + e.toString());
-	    } catch (IOException e) {
-	        Log.e("login activity", "Can not read file: " + e.toString());
-	    }
-	
-	    return ret;
+	private String readFromFile(String filename) { // Read data from a file
+		String ret = "";
+		try {
+			InputStream inputStream = openFileInput(filename);
+
+			if (inputStream != null) {
+				InputStreamReader inputStreamReader = new InputStreamReader(
+						inputStream);
+				BufferedReader bufferedReader = new BufferedReader(
+						inputStreamReader);
+				String receiveString = "";
+				StringBuilder stringBuilder = new StringBuilder();
+
+				while ((receiveString = bufferedReader.readLine()) != null) {
+					stringBuilder.append(receiveString);
+				}
+
+				inputStream.close();
+				ret = stringBuilder.toString();
+			}
+		} catch (FileNotFoundException e) {
+			Log.e("login activity", "File not found: " + e.toString());
+		} catch (IOException e) {
+			Log.e("login activity", "Can not read file: " + e.toString());
+		}
+
+		return ret;
 	}
-	
-	
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		//Determine if the config file exists
-		File file = new File("alarm_config.txt");
-		if(!file.exists()){//If the file does not exists we initialize an empty set of alarms
-			String init_config = "[]";
-			writeToFile(init_config,"alarm_config.txt");
-		}
-		
-		//Now let's read the file string
-		String alarm_list = readFromFile("alarm_config.txt");
-				
-		//DEBUG AREA: Making a default set of alarms =============
-		alarm_list = "[{" + 
-					"\"alarm_name\":\"Call Gerald\"," +
-					"\"alarm_time_hour\":\"15\"," +
-					"\"alarm_time_min\" : \"30\"," +
-					"\"nfc_id\":\"FFC:234:dsf:322\"," +
-					"\"sound_path\": \"dfgsdg\"," +
-					"\"repeat\": \"True\"," +
-					"\"status\":\"4\"}," +
-					
-					"{\"alarm_name\":\"Call Argus\"," +
-					"\"alarm_time_hour\":\"15\"," +
-					"\"alarm_time_min\" : \"30\"," +
-					"\"nfc_id\":\"FFC:234:dsf:322\"," +
-					"\"sound_path\": \"dfgsdg\"," +
-					"\"repeat\": \"True\"," +
-					"\"status\":\"4\"}" +
+		// I am commenting the next part out, because it overwites the file I
+		// make.
+		// so for now im gonna comment it out, and will fix it later (by Ash)
+		/*
+		 * //Determine if the config file exists File file = new
+		 * File("alarm_config.txt"); if(!file.exists()){//If the file does not
+		 * exists we initialize an empty set of alarms String init_config = " ";
+		 * // Changed this to an emapty string (by Ash)
+		 * writeToFile(init_config,"alarm_config.txt"); }
+		 */
 
-		   		"]";
+		// Now let's read the file string
+		String alarm_list = readFromFile("alarm_config.txt");
+
+		// DEBUG AREA: Making a default set of alarms =============
+		alarm_list = "[{" + "\"alarm_name\":\"Call Gerald\","
+				+ "\"alarm_time_hour\":\"15\","
+				+ "\"alarm_time_min\" : \"30\","
+				+ "\"nfc_id\":\"FFC:234:dsf:322\","
+				+ "\"sound_path\": \"dfgsdg\"," + "\"repeat\": \"True\","
+				+ "\"status\":\"4\"}," +
+
+				"{\"alarm_name\":\"Call Argus\","
+				+ "\"alarm_time_hour\":\"15\","
+				+ "\"alarm_time_min\" : \"30\","
+				+ "\"nfc_id\":\"FFC:234:dsf:322\","
+				+ "\"sound_path\": \"dfgsdg\"," + "\"repeat\": \"True\","
+				+ "\"status\":\"4\"}" +
+
+				"]";
+
+		// I will use the following data structure for the SetAlarm activity. It
+		// has the same field, but im combining the two parts: (by Ash)
+
+		// Example alarm json data created by SetAlarm activity:
+		// [
+		// { 
+		// "ID":"random number",
+		// "alarm_name":"Call Gerald",
+		// "alarm_time_hour":"15",
+		// "alarm_time_min" : "30",
+		// "nfc_id":"FFC:234:dsf:322",
+		// "sound_path": "somepath\/to/\sound.mp3",
+		// "repeat": "True",
+		// "status":"4"
+		// "name":"Devil Hacker",
+		// "img":"pictures\/smallest\/belitapic.jpg",
+		// "username":"@dvHack",
+		// "user_id":"1"
+		// }
+		// ]
 		
-		//Example alarm json data:
-		//[  
-		//   {  //ALARM FOR 3:30pm
-		//      "alarm_name":"Call Gerald",
-		//      "alarm_time_hour":"15",
-		//		"alarm_time_min" : "30",
-		//      "nfc_id":"FFC:234:dsf:322",
-		//		"sound_path": "somepath\/to/\sound.mp3",
-		//		"repeat": "True",
-		//      "status":"4"
-		//   },
-		//   {  
-		//      "name":"Devil Hacker",
-		//      "img":"pictures\/smallest\/belitapic.jpg",
-		//      "username":"@dvHack",
-		//      "user_id":"1"
-		//   }
-		//]
-		
-		
-		
+		//not this:
+
+		// Example alarm json data:
+		// [
+		// { //ALARM FOR 3:30pm
+		// "alarm_name":"Call Gerald",
+		// "alarm_time_hour":"15",
+		// "alarm_time_min" : "30",
+		// "nfc_id":"FFC:234:dsf:322",
+		// "sound_path": "somepath\/to/\sound.mp3",
+		// "repeat": "True",
+		// "status":"4"
+		// },
+		// {
+		// "name":"Devil Hacker",
+		// "img":"pictures\/smallest\/belitapic.jpg",
+		// "username":"@dvHack",
+		// "user_id":"1"
+		// }
+		// ]
+
 		String[] alarm_name_array = null;
-		
+
 		try {
 			JSONArray alarm_json = new JSONArray(alarm_list);
 			alarm_name_array = new String[alarm_json.length()];
-			for (int i=0;i<alarm_json.length();i++){
-				JSONObject alarm_object = (JSONObject)alarm_json.getJSONObject(i);
+			for (int i = 0; i < alarm_json.length(); i++) {
+				JSONObject alarm_object = (JSONObject) alarm_json
+						.getJSONObject(i);
 				alarm_name_array[i] = alarm_object.getString("alarm_name");
 			}
-		  
-		}catch(Exception e)
-		{
-		        e.printStackTrace();
-		}
-		
-		
 
-	//	ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-	//android.R.layout.simple_list_item_1, android.R.id.text1, alarm_name_array);
-		ArrayAdapter<String>  adapter = new AlarmAdapter(this, alarm_name_array);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		// ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+		// android.R.layout.simple_list_item_1, android.R.id.text1,
+		// alarm_name_array);
+		ArrayAdapter<String> adapter = new AlarmAdapter(this, alarm_name_array);
 
 		listView = (ListView) findViewById(R.id.list);
 
@@ -190,7 +210,8 @@ public class MainActivity extends Activity {
 			public void onClick(View v) {
 				// Calling the SetAlarm activity
 				// We send the alarm id number, if we want to modify an alarm
-				// it is initially set to 0, this is if we want to set a new alarm
+				// it is initially set to 0, this is if we want to set a new
+				// alarm
 				Intent intent = new Intent(MainActivity.this, SetAlarm.class);
 				intent.putExtra("AlarmIDNumber", AlarmIDNumber);
 				startActivity(intent);
