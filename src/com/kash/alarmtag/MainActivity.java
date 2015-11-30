@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,6 +27,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
+import com.kash.alarmtag.models.*;
 
 public class MainActivity extends Activity {
 
@@ -157,13 +160,22 @@ public class MainActivity extends Activity {
 		// ]
 
 		String[] alarm_name_array = null;
-
+		
+		//Create a new alarm list
+		List<Alarm> alarms = new ArrayList<Alarm>();
+		//Must populate this list with the correct json data:
+		
+		
 		try {
 			JSONArray alarm_json = new JSONArray(alarm_list);
 			alarm_name_array = new String[alarm_json.length()];
 			for (int i = 0; i < alarm_json.length(); i++) {
 				JSONObject alarm_object = (JSONObject) alarm_json
 						.getJSONObject(i);
+				//Do all of the assignment here:
+				Alarm alarmObj = new Alarm();
+				alarmObj.setAlarmName(alarm_object.getString("alarm_name"));
+				alarms.add(alarmObj);
 				alarm_name_array[i] = alarm_object.getString("alarm_name");
 			}
 
@@ -171,9 +183,7 @@ public class MainActivity extends Activity {
 			e.printStackTrace();
 		}
 
-		// ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-		// android.R.layout.simple_list_item_1, android.R.id.text1,
-		// alarm_name_array);
+		//Gonna pass the AlarmList object here instead ...soon (kyle)
 		ArrayAdapter<String> adapter = new AlarmAdapter(this, alarm_name_array);
 
 		listView = (ListView) findViewById(R.id.list);
