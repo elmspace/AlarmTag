@@ -122,7 +122,7 @@ public class MainActivity extends Activity {
 
 		// Example alarm json data created by SetAlarm activity:
 		// [
-		// { 
+		// {
 		// "ID":"random number",
 		// "alarm_name":"Call Gerald",
 		// "alarm_time_hour":"15",
@@ -137,8 +137,8 @@ public class MainActivity extends Activity {
 		// "user_id":"1"
 		// }
 		// ]
-		
-		//not this:
+
+		// not this:
 
 		// Example alarm json data:
 		// [
@@ -160,19 +160,18 @@ public class MainActivity extends Activity {
 		// ]
 
 		String[] alarm_name_array = null;
-		
-		//Create a new alarm list
+
+		// Create a new alarm list
 		List<Alarm> alarms = new ArrayList<Alarm>();
-		//Must populate this list with the correct json data:
-		
-		
+		// Must populate this list with the correct json data:
+
 		try {
 			JSONArray alarm_json = new JSONArray(alarm_list);
 			alarm_name_array = new String[alarm_json.length()];
 			for (int i = 0; i < alarm_json.length(); i++) {
 				JSONObject alarm_object = (JSONObject) alarm_json
 						.getJSONObject(i);
-				//Do all of the assignment here:
+				// Do all of the assignment here:
 				Alarm alarmObj = new Alarm();
 				alarmObj.setAlarmName(alarm_object.getString("alarm_name"));
 				alarms.add(alarmObj);
@@ -183,7 +182,7 @@ public class MainActivity extends Activity {
 			e.printStackTrace();
 		}
 
-		//Gonna pass the AlarmList object here instead ...soon (kyle)
+		// Gonna pass the AlarmList object here instead ...soon (kyle)
 		ArrayAdapter<String> adapter = new AlarmAdapter(this, alarm_name_array);
 
 		listView = (ListView) findViewById(R.id.list);
@@ -222,7 +221,10 @@ public class MainActivity extends Activity {
 				// We send the alarm id number, if we want to modify an alarm
 				// it is initially set to 0, this is if we want to set a new
 				// alarm
-				Intent intent = new Intent(MainActivity.this, SetAlarm.class);
+				Intent intent = new Intent(MainActivity.this,
+						TestActivity.class); // It goes to the TestActivity for
+												// now, just playing with the
+												// nfc stuff (by: Ash)
 				intent.putExtra("AlarmIDNumber", AlarmIDNumber);
 				startActivity(intent);
 			}
