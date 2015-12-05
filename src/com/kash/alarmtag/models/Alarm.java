@@ -1,15 +1,23 @@
 package com.kash.alarmtag.models;
 
 public class Alarm {
+	private int ID;
 	private String alarm_name;
 	private int alarm_time_hour;
 	private int alarm_time_min;
-	private String nfc_name;
-	private String nfc_id; //May change this
+	private int nfc_flag;
 	private String sound_path;
 	private Boolean repeat;
 	private int status;
 
+	//Get Set for alarm names
+		public void setAlarmID(int ID){
+			this.ID = ID;
+		}
+		public int getAlarmID(){
+			return this.ID;
+		}
+	
 	//Get Set for alarm names
 	public void setAlarmName(String name){
 		this.alarm_name = name;
@@ -31,16 +39,13 @@ public class Alarm {
 	}
 	
 	//Get Set for the NFC info
-	public void setAlarmNFC(String nfc_name,String nfc_id){
-		this.nfc_name = nfc_name;
-		this.nfc_id = nfc_id;
+	public void setAlarmNFCFlag(int nfc_flag){
+		this.nfc_flag = nfc_flag;
 	}
-	public String getAlarmNFCName(){
-		return this.nfc_name;
+	public int getAlarmNFCFlag(){
+		return this.nfc_flag;
 	}
-	public String getAlarmNFCID(){
-		return this.nfc_id;
-	}
+	
 	
 	//Get Set for the alarm properties
 	public void setAlarmProperties(String sound_path,Boolean repeat,int status){

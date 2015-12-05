@@ -62,14 +62,11 @@ public class SetAlarm extends Activity {
 					AlarmDetails.put("alarm_name", AlarmName);
 					AlarmDetails.put("alarm_time_hour", Hour);
 					AlarmDetails.put("alarm_time_min", Minute);
-					AlarmDetails.put("nfc_id", "NA");
+					AlarmDetails.put("nfc_flag", "NA");
 					AlarmDetails.put("sound_path", "NA");
 					AlarmDetails.put("repeat", "NA");
 					AlarmDetails.put("status", "NA");
-					AlarmDetails.put("name", "NA");
-					AlarmDetails.put("img", "NA");
-					AlarmDetails.put("username", "NA");
-					AlarmDetails.put("user_id", "NA");
+					
 
 				} catch (Exception e) {
 					Context context = getApplicationContext();
@@ -87,7 +84,7 @@ public class SetAlarm extends Activity {
 					FileOutputStream fos = openFileOutput(file,
 							Context.MODE_APPEND);
 					OutputStreamWriter osw = new OutputStreamWriter(fos);
-					osw.write("[" + content + "]\n");
+					osw.write( content + ",\n");
 					osw.flush();
 					osw.close();
 					fos.close();
