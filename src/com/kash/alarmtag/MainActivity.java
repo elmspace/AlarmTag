@@ -17,6 +17,8 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.AssetFileDescriptor;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -32,6 +34,7 @@ import com.kash.alarmtag.models.*;
 public class MainActivity extends Activity {
 
 	ListView listView;
+	final MediaPlayer mp = new MediaPlayer();
 
 	// Global variables
 
@@ -137,7 +140,7 @@ public class MainActivity extends Activity {
 			}
 	
 			// Gonna pass the AlarmList object here instead ...soon (kyle)
-			ArrayAdapter<String> adapter = new AlarmAdapter(this, alarm_name_array);
+			ArrayAdapter<String> adapter = new AlarmAdapter(this, alarms);
 	
 			listView = (ListView) findViewById(R.id.list);
 	
@@ -148,15 +151,23 @@ public class MainActivity extends Activity {
 	
 				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 	
-					// ListView Clicked item index
-					int itemPosition = position;
-	
-					// ListView Clicked item value
-					String itemValue = (String) listView.getItemAtPosition(position);
-	
-					// Show Alert
-					Toast.makeText(getApplicationContext(), "Position :" + itemPosition + "  ListItem : " + itemValue,
-							Toast.LENGTH_LONG).show();
+					if(mp.isPlaying())
+			        {  
+			            mp.stop();
+			        } 
+
+			        try {
+			            mp.reset();
+			            AssetFileDescriptor afd;
+			            afd = getAssets().openFd("AudoFile.mp3");
+			            mp.setDataSource(afd.getFileDescriptor(),afd.getStartOffset(),afd.getLength());
+			            mp.prepare();
+			            mp.start();
+			        } catch (IllegalStateException e) {
+			            e.printStackTrace();
+			        } catch (IOException e) {
+			            e.printStackTrace();
+			        }
 	
 				}
 	
@@ -172,7 +183,7 @@ public class MainActivity extends Activity {
 				// We send the alarm id number, if we want to modify an alarm
 				// it is initially set to 0, this is if we want to set a new
 				// alarm
-				Intent intent = new Intent(MainActivity.this, TestActivity.class); 
+				Intent intent = new Intent(MainActivity.this, SetAlarm.class); 
 																					
 				intent.putExtra("AlarmIDNumber", AlarmIDNumber);
 				startActivity(intent);

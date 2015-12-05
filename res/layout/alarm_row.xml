@@ -4,54 +4,53 @@
 	   android:layout_height="wrap_content"
 	   android:layout_width="match_parent"
 	   android:orientation="horizontal">
-	   
-        <ImageView
-           android:id="@+id/imageView1"
-           android:layout_width="100dp"
-           android:layout_height="100dp"
-           android:src="@drawable/ic_launcher"
-           android:layout_marginLeft="5dp"
-           android:layout_marginTop="5dp" />
-              
-         <LinearLayout
-           android:layout_width="wrap_content"
-           android:layout_height="match_parent"
-           android:orientation="vertical" 
-           android:layout_marginLeft="10dp"
-           android:gravity="left" >
-        
 
-        <TextView
-            android:id="@+id/textView1"
+        <LinearLayout
+            android:layout_width="122dp"
+            android:layout_height="70dp" >
+
+            <TextView
+                android:id="@+id/time"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="9:15 am"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textSize="30sp"
+                android:typeface="normal" />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Header Text"
-            android:textSize="19sp"
-            android:textColor="#222222"
-            android:textStyle="bold" />
-    
+            android:layout_height="match_parent" >
 
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Tweet body text here"
-             android:layout_marginTop="5dp"
-            android:ellipsize="end"
-            android:lines="3"
-            android:textColor="#666666"                                                
-            android:textSize="14sp" />
-    
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.70"
+                android:orientation="vertical" >
 
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="20 Nov 2013"
-            android:layout_marginTop="5dp"
-            android:textColor="#999999"
-            android:textSize="12sp" />
-    
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Time for Work"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
 
-  </LinearLayout>   
+                <TextView
+                    android:id="@+id/nfc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="NFC is ON"
+					android:layout_marginTop="5dp"
+					android:gravity="center"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+   
     </LinearLayout>  
