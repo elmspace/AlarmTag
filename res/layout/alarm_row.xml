@@ -1,56 +1,48 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/list"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal" >
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	   android:id="@+id/list"
-	   android:layout_height="wrap_content"
-	   android:layout_width="match_parent"
-	   android:orientation="horizontal">
+    <LinearLayout
+        android:layout_width="90dp"
+        android:layout_height="80dp" >
 
-        <LinearLayout
-            android:layout_width="122dp"
-            android:layout_height="70dp" >
-
-            <TextView
-                android:id="@+id/time"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="9:15 am"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textSize="30sp"
-                android:typeface="normal" />
-
-        </LinearLayout>
-
-        <LinearLayout
+        <ImageView
+            android:id="@+id/alarm_set"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:scaleType="fitCenter"
+            android:clickable="true"
+            android:src="@drawable/alarm_off" />
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="0.70"
-                android:orientation="vertical" >
+    </LinearLayout>
 
-                <TextView
-                    android:id="@+id/name"
-                    android:layout_marginTop="10dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="Time for Work"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
 
-                <TextView
-                    android:id="@+id/nfc"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="NFC is ON"
-					android:layout_marginTop="5dp"
-					android:gravity="center"
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="9:30 am"
+            android:gravity="center"        
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textStyle="bold" />
 
-            </LinearLayout>
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:layout_margin="5dp"
+            android:gravity="center" 
+            android:text="Call Stacey from Accounting"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
-        </LinearLayout>
-   
-    </LinearLayout>  
+    </LinearLayout>
+
+</LinearLayout>

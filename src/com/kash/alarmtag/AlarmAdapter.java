@@ -10,7 +10,9 @@ import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class AlarmAdapter extends ArrayAdapter{
@@ -35,12 +37,41 @@ public class AlarmAdapter extends ArrayAdapter{
 
         }
     	temp_alarm = alarms_array.get(position);
-    	
+
         TextView alarm_name = (TextView) convertView.findViewById(R.id.name);
         alarm_name.setText(temp_alarm.getAlarmName());
 
         TextView alarm_time = (TextView) convertView.findViewById(R.id.time);
         alarm_time.setText(temp_alarm.getAlarmTimeHour() + ":" + temp_alarm.getAlarmTimeMin() + "am");
+        
+        ImageView alarm_set = (ImageView) convertView.findViewById(R.id.alarm_set);
+		alarm_set.setOnClickListener(new OnClickListener(){
+		    public void onClick(View view) {
+		    	ImageView imageView = (ImageView) view;			    	  
+		    	Integer integer = (Integer) imageView.getTag();
+		    	   integer = integer == null ? 0 : integer;
+		    	   switch(integer) {
+		    	    case R.drawable.alarm_off:
+		    	     imageView.setImageResource(R.drawable.alarm_on);
+		    	     imageView.setTag(R.drawable.alarm_on);
+		    	     break;
+		    	    case R.drawable.alarm_on:
+		    	    	imageView.setImageResource(R.drawable.nfc);
+			    	    imageView.setTag(R.drawable.nfc);
+			    	    break;
+		    	    case R.drawable.nfc:
+		    	    	imageView.setImageResource(R.drawable.alarm_off);
+			    	    imageView.setTag(R.drawable.alarm_off);
+			    	    break;
+		    	    default:
+		    	     imageView.setImageResource(R.drawable.alarm_off);
+		    	     imageView.setTag(R.drawable.alarm_off);
+		    	     break;
+		    	  }
+		    	  
+		    }
+		});
+        
         
         return convertView;
     }

@@ -27,6 +27,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 import com.kash.alarmtag.models.*;
@@ -143,35 +144,36 @@ public class MainActivity extends Activity {
 			ArrayAdapter<String> adapter = new AlarmAdapter(this, alarms);
 	
 			listView = (ListView) findViewById(R.id.list);
-	
-			// Assign adapter to ListView
 			listView.setAdapter(adapter);
-	
-			listView.setOnItemClickListener(new OnItemClickListener() {
-	
-				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-	
-					if(mp.isPlaying())
-			        {  
-			            mp.stop();
-			        } 
 
-			        try {
-			            mp.reset();
-			            AssetFileDescriptor afd;
-			            afd = getAssets().openFd("AudoFile.mp3");
-			            mp.setDataSource(afd.getFileDescriptor(),afd.getStartOffset(),afd.getLength());
-			            mp.prepare();
-			            mp.start();
-			        } catch (IllegalStateException e) {
-			            e.printStackTrace();
-			        } catch (IOException e) {
-			            e.printStackTrace();
-			        }
+			
+			// Assign adapter to ListView
 	
-				}
-	
-			});
+//			listView.setOnItemClickListener(new OnItemClickListener() {
+//	
+//				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//	
+//					if(mp.isPlaying())
+//			        {  
+//			            mp.stop();
+//			        } 
+//
+//			        try {
+//			            mp.reset();
+//			            AssetFileDescriptor afd;
+//			            afd = getAssets().openFd("AudoFile.mp3");
+//			            mp.setDataSource(afd.getFileDescriptor(),afd.getStartOffset(),afd.getLength());
+//			            mp.prepare();
+//			            mp.start();
+//			        } catch (IllegalStateException e) {
+//			            e.printStackTrace();
+//			        } catch (IOException e) {
+//			            e.printStackTrace();
+//			        }
+//	
+//				}
+//	
+//			});
 		}
 
 		Button addAlarm = (Button) findViewById(R.id.button_addAlarm);
